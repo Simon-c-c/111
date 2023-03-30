@@ -6,8 +6,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #221f21;
+  /* background: #221f21; */
+  background: #4a4a4a
 }
+
 .cont {
   position: relative;
   display: flex;

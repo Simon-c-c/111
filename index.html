@@ -21,6 +21,23 @@
         <div id="wrapper"></div>
     </div>
 
+    <!--  svg 滤镜  -->
+    <svg width="300" height="300" viewBox="0 0 20 20" style="position:absolute;left:-999px;">
+        <filter id="inset-shadow">
+            <!-- 投影偏移 -->
+            <feOffset dx="-4" dy="4" />
+            <!-- 投影模糊 -->
+            <feGaussianBlur stdDeviation="6" result="offset-blur" />
+            <!-- 反转投影使其变成内投影 -->
+            <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+            <!-- 内投影附加黑色 -->
+            <feFlood flood-color="#222" flood-opacity=".95" result="color" />
+            <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+            <!-- 把内投影显示在图像上 -->
+            <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+        </filter>
+    </svg>
+
     <script src="main.js"></script>
 
 </body>
