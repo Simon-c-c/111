@@ -6,7 +6,7 @@ library(rjson)
 library(tidyjson)
 library(readr)
 
-mysqlconnection = dbConnect(MySQL(), user = 'root', password = 'z6skqQJrf', dbname = 'r-app-fat',
+mysqlconnection = dbConnect(MySQL(), user = 'root', password = 'z6skqQJrf', dbname = 'r-app-dev',
   host = '192.168.110.5')
 
 dbListTables(mysqlconnection)
@@ -101,7 +101,6 @@ for( x in 1:length(homework$homework_id)) { #length(homework$homework_id)
 result <- result[,c(1,2,4,5)]
 result1 <- unique(result)
 
-
 HW1 <- homework[,c(1:19,24:35)]
 rs1 <- full_join(HW1,result1,by=c('homework_id' = 'group'))
 user <- user[,c(1,3,4,5,6,7,8,11,12,13,14)]
@@ -112,4 +111,26 @@ class <- class[,c(1,2,4,7,8)]
 rs3 <- full_join(rs2,class,by='class_id')
 
 
-write_excel_csv(rs3, 'data2.csv')
+# write_excel_csv(rs3, 'data3.csv')
+
+#-------------------------------------------------------------------------
+result2 <- homework[,c(1,23)]
+result2 <- result2 %>% 
+  filter(nchar(checklist_result) >= 5)
+
+# test1 <- fromJSON(result2$checklist_result[9])
+
+# result3 <- data.frame(fromJSON(result2$checklist_result[1])[[1]][[1]]) %>% 
+#   mutate(group = 1)
+# result3 <- result3[-1,]
+# 
+# for( x in 1:length(result2$homework_id)) {
+#   test1 <- fromJSON(result2$checklist_result[x])
+#   for(y in length(test1)){
+#     for(z in length(test1[[y]])){
+#       newcol <- data.frame(test1[[y]][[z]]) %>% 
+#         mutate(group=result2$homework_id[x])
+#       result3 <- rbind(result3,newcol)
+#     }
+#   }
+# }
