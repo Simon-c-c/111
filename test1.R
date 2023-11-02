@@ -5,6 +5,7 @@ library(DT)
 library(rjson)
 library(tidyjson)
 library(readr)
+# library(sandwich)
 
 mysqlconnection = dbConnect(MySQL(), user = 'root', password = 'z6skqQJrf', dbname = 'r-app-dev',
   host = '192.168.110.5')
@@ -97,7 +98,7 @@ for( x in 1:length(homework$homework_id)) { #length(homework$homework_id)
     }
   }
 }
-  
+
 result <- result[,c(1,2,4,5)]
 result1 <- unique(result)
 
@@ -124,17 +125,17 @@ result3 <- result3[-1,]
 
 for( x in 1:length(result2$homework_id)) {
   test1 <- fromJSON(result2$checklist_result[x])
-  for(y in length(test1)){
+  for(y in 1:length(test1)){
     if(length(test1[[y]][[1]][[1]]) > 3) {
-      for(z in length(test1[[y]])){
-        for(w in length(test1[[y]][[z]])){
+      for(z in 1:length(test1[[y]])){
+        for(w in 1:length(test1[[y]][[z]])){
           newcol <- data.frame(test1[[y]][[z]][[w]])[,1:4] %>%
             mutate(group=result2$homework_id[x])
           result3 <- rbind(result3,newcol)
         }
       }
     } else {
-      for(z in length(test1[[y]])){
+      for(z in 1:length(test1[[y]])){
         newcol <- data.frame(test1[[y]][[z]])[,1:4] %>%
           mutate(group=result2$homework_id[x])
         result3 <- rbind(result3,newcol)
@@ -146,7 +147,7 @@ for( x in 1:length(result2$homework_id)) {
 result3 <- result3[,c(1,3,5)]
 colnames(result3)[2] <- 'get_score'
 
-rs4 <- left_join(rs3,result3,by=c('id','homework_id' = 'group'))
+rs4 <- right_join(rs3,result3,by=c('id','homework_id' = 'group'))
 rs5 <- subset(rs4,get_score!="NA")
 
 # write_excel_csv(rs5, 'data2.csv')
