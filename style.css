@@ -44,3 +44,10 @@ body {
   z-index: 1;
   margin: 30px 0 50px 0;
 }
+
+.warpper1 {
+  background-color: #fff;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}

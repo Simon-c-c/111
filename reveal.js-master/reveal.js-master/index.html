@@ -18,15 +18,27 @@
 			<div class="slides">
 				<section>Slide 1</section>
 				<section>Slide 2</section>
-				<section>Slide 2</section>
-				<section>
-					<div id="wapper1"> </div>
+				<section data-markdown data-background-color="#7fffd4">
+					<textarea data-template>
+						## Slide 1
+						A paragraph with some text and a [link](https://hakim.se).
+						---
+						## Slide 3
+						---
+						## Slide 4
+					</textarea>
 				</section>
-				<section>1</section>
+				<section data-background-color="#4646ff">
+					<h2>🍦</h2>
+				</section>
+				<section data-background-gradient="radial-gradient(#283b95, #17b2c3)">
+					<h2>🐳 🦈 🐬</h2>
+				</section>
 			</div>
 		</div>
 
 		<script src="dist/reveal.js"></script>
+		<script src="../../d3.min.js"></script>
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
@@ -36,12 +48,16 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
+				view: 'scroll',
+				scrollProgress: true ,
+				scrollLayout: 'full',
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
+			Reveal.toggleOverview( true )
 		</script>
 		<script>
+			
 			
 		</script>
 	</body>
