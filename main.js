@@ -147,7 +147,7 @@ async function DrawPolarClook() {
     fieldFocus.attr("transform", d => `rotate(${(d.index / d.range.length + d.cycle) * 360})`);
     return svg.node();
   }
-console.log(width)
+// console.log(width)
 }
 DrawPolarClook()
 
@@ -168,3 +168,6 @@ const cancalDebounce = debounce(function(){
 }, 500);
 
 window.addEventListener('resize', cancalDebounce);
+
+//---------------------------------------------------------------------
+
