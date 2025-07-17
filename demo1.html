@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发送POST请求</title>
+    <!-- 引入axios -->
+    <!-- 确保通过CDN引入axios -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <input type="text" id="inputField" placeholder="请输入内容..." onkeydown="handleKeyDown(event)">
+    <button onclick="sendPostRequest()">发送</button>
+
+    <script>
+        function handleKeyDown(event) {
+            // 检查是否按下了回车键（keyCode 13）
+            if (event.keyCode === 13) {
+                sendPostRequest();
+            }
+        }
+        // 初始化历史数据
+        const history_prompt = [{'role': 'user', 'content': '我是一个在学习嵌入式的学生，可能会问一些问题。'},
+                  {'role': 'assistant', 'content': '好的，明白了。'}]
+
+        function sendPostRequest() {
+            const inputValue = document.getElementById('inputField').value;
+            history_prompt.push({'role': 'user', 'content': inputValue})//将用户输入放入历史数据
+            console.log(history_prompt)
+            // 使用axios发送POST请求
+            axios({
+                method: 'post',
+                url: 'http://127.0.0.1:5000/stats/ai_api', // 替换为您的API端点
+                data: {
+                    name: 'STM32', //芯片名称
+                    // content: inputValue //用户输入文本
+                    content: history_prompt
+                }
+            })
+            .then(function (response) {
+                console.log(response.data);
+                history_prompt.push({'role': 'assistant', 'content': response.data.msg})//将回答放入历史数据
+                alert('请求成功');
+            })
+            .catch(function (error) {
+                console.error(error);
+                history_prompt.pop()//去除用户最新输入
+                alert('请求失败');
+            });
+        }
+    </script>
+</body>
+</html>
